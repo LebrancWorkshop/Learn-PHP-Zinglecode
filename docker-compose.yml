@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  php-apache:
+    container_name: php-apache
+    image: php:8.2-apache
+    depends_on:
+      - db
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - 7103:80
+  db:
+    container_name: db
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: p@ssw0rd
+      MYSQL_DATABASE: tutorials
+      MYSQL_USER: user
+      MYSQL_PASSWORD: p@ssw0rd
+    ports:
+      - 8001:3306
