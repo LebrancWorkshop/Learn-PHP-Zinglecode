@@ -1,14 +1,16 @@
 version: '3.8'
 services:
-  php-apache:
-    container_name: php-apache
-    image: php:8.2-apache
+  php-apache-server:
+    container_name: php-apache-server
+    build:
+      context: ./php
+      dockerfile: Dockerfile
     depends_on:
       - db
     volumes:
-      - ./src:/var/www/html
+      - ./php/src:/var/www/html
     ports:
-      - 7103:80
+      - "7110:80"
   db:
     container_name: db
     image: mysql:5.7
@@ -19,4 +21,15 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: p@ssw0rd
     ports:
-      - 8001:3306
+      - "8010:3306"
+  admin:
+    container_name: admin
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8000:80"
+    restart: always
+    environment:
+      PMA_HOST: db
+    depends_on:
+      - db
+
