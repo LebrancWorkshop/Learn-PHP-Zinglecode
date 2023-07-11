@@ -11,8 +11,6 @@ $connection = mysqli_connect($hostname, $username, $password, $database, $port);
 
 if(!$connection) {
 	echo "Not Connected!" . mysqli_connect_error();;
-} else {
-	echo "Connected!";
 }
 
 ?>
